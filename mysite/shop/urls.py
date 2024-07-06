@@ -1,11 +1,14 @@
 from django.urls import path
-from . import views
+from .views import BlogPostListView, BlogPostDetailView, BlogPostCreateView, BlogPostUpdateView, BlogPostDeleteView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('product/<int:pk>/', views.product_detail, name='product_detail'),
+    path('', BlogPostListView.as_view(), name='blogpost_list'),
+    path('post/new/', BlogPostCreateView.as_view(), name='blogpost_create'),
+    path('post/<slug:slug>/', BlogPostDetailView.as_view(), name='blogpost_detail'),
+    path('post/<slug:slug>/edit/', BlogPostUpdateView.as_view(), name='blogpost_edit'),
+    path('post/<slug:slug>/delete/', BlogPostDeleteView.as_view(), name='blogpost_delete'),
 ]
 
 if settings.DEBUG:
