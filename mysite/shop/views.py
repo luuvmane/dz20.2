@@ -5,6 +5,7 @@ from .models import BlogPost
 from django.db.models import F
 from django.utils.text import slugify
 import uuid
+from django.urls import reverse
 
 
 class ProductListView(ListView):
@@ -41,7 +42,7 @@ class BlogPostDetailView(DetailView):
 
     def get_object(self, queryset=None):
         post = super().get_object(queryset=queryset)
-        post.views = F('views') + 1
+        post.views += 1
         post.save(update_fields=['views'])
         return post
 
